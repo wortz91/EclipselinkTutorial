@@ -18,8 +18,8 @@ public class DatabaseGenerator {
 		itemToAdd.setItemPrice(new BigDecimal(2.99));
 		itemToAdd.setItemUnitType("Oz");
 		
-		ItemDAO itemDAO = new ItemDAO();
-		itemDAO.addItem(itemToAdd);
+//		ItemDAO itemDAO = new ItemDAO();
+//		itemDAO.addItem(itemToAdd);
 	}
 
 }

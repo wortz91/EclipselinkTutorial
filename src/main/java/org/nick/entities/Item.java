@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +17,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
+@NamedQueries({
+	@NamedQuery(name="Item.getAllItems", query="SELECT i FROM Item i"),
+	@NamedQuery(name="Item.getSingleItem", query="SELECT i FROM Item i WHERE i.id = 2")
+})
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 

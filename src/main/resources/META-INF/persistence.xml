@@ -13,6 +13,5 @@
 			<property name="javax.persistence.jdbc.password" value="nicknick"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
-		
 	</persistence-unit>
 </persistence>
