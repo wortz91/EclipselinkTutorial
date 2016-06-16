@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The persistent class for the items database table.
@@ -21,6 +22,8 @@ import javax.persistence.Table;
 	@NamedQuery(name="Item.getAllItems", query="SELECT i FROM Item i"),
 	@NamedQuery(name="Item.getSingleItem", query="SELECT i FROM Item i WHERE i.id = 2")
 })
+
+//@XmlRootElement(name = "item")
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -6,7 +6,7 @@
 		<properties>
 			<property name="eclipselink.target-database" value="MySQL"/>
 			<property name="eclipselink.ddl-generation.output-mode" value="database"/>
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
 			
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.0.10:3306/GroceryAppE?createDatabaseIfNotExist=true"/>
 			<property name="javax.persistence.jdbc.user" value="nick"/>
