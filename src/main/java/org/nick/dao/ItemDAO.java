@@ -15,7 +15,7 @@ import org.nick.entities.Item;
 public class ItemDAO {
 
 	@GET
-	public List<Item> getAllItems() {
+	public List<Item> getItems() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("EclipseLinkTutorial");
 		EntityManager em = emf.createEntityManager();
 
@@ -24,7 +24,7 @@ public class ItemDAO {
 		Query query = em.createNamedQuery("Item.getAllItems");
 
 		List<Item> items = query.getResultList();
-
+		
 		em.close();
 		emf.close();
 
@@ -33,20 +33,18 @@ public class ItemDAO {
 	}
 
 	@GET
-	public List<Item> getSingleItem() {
+	public Item getItem(int itemId) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("EclipseLinkTutorial");
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = em.getTransaction();
 
-		Query query = em.createNamedQuery("Item.getSingleItem");
-
-		List<Item> items = query.getResultList();
+		Item item = em.find(Item.class, itemId);
 
 		em.close();
 		emf.close();
 
-		return items;
+		return item;
 	}
 
 	public int addItem(Item itemToAdd) {
@@ -54,41 +52,62 @@ public class ItemDAO {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("EclipseLinkTutorial");
 
 		EntityManager entitymanager = emfactory.createEntityManager();
-		entitymanager.getTransaction().begin();
 
 		// create the item object
-		entitymanager.persist(itemToAdd);
-		entitymanager.getTransaction().commit();
+		try {
+			entitymanager.getTransaction().begin();
 
-		entitymanager.close();
-		emfactory.close();
+			entitymanager.persist(itemToAdd);
+			
+			entitymanager.getTransaction().commit();
+		} catch (Exception e) {
+			return 0;
+		} finally {
+			entitymanager.close();
+			emfactory.close();
+		}
 
 		return 1;
 	}
 
-	public int deleteItem(int id) {
-		List<Item> itemList = getAllItems();
+	public void deleteItem(int id) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("EclipseLinkTutorial");
 
 		EntityManager entitymanager = emfactory.createEntityManager();
 		entitymanager.getTransaction().begin();
 
-		for (Item item : itemList) {
-			if (item.getId() == id) {
-				int index = itemList.indexOf(item);
-				itemList.remove(index);
-				
-				entitymanager.persist(itemList);
-				entitymanager.getTransaction().commit();
-				
-				entitymanager.close();
-				emfactory.close();
-				return 1;
-			}
-		}
-		
+		Item item = entitymanager.find(Item.class, id);
+
+		entitymanager.remove(item);
+
+		entitymanager.getTransaction().commit();
+
 		entitymanager.close();
 		emfactory.close();
-		return 0;
+	}
+
+	public int updateItem(Item itemToUpdate) {
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("EclipseLinkTutorial");
+
+		EntityManager entitymanager = emfactory.createEntityManager();	
+		
+		// create the item object
+		try {
+			entitymanager.getTransaction().begin();
+			
+			Item item = entitymanager.find(Item.class, itemToUpdate.getId());
+			
+			
+			item.setItemName(itemToUpdate.getItemName());
+			
+			entitymanager.getTransaction().commit();
+		} catch (Exception e) {
+			return 0;
+		} finally {
+			entitymanager.close();
+			emfactory.close();
+		}
+
+		return 1;
 	}
 }

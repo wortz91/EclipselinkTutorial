@@ -18,19 +18,18 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table
-@NamedQueries({
-	@NamedQuery(name="Item.getAllItems", query="SELECT i FROM Item i"),
-	@NamedQuery(name="Item.getSingleItem", query="SELECT i FROM Item i WHERE i.id = 2")
-})
+@NamedQueries({ @NamedQuery(name = "Item.getAllItems", query = "SELECT i FROM Item i"),
+		@NamedQuery(name = "Item.getSingleItem", query = "SELECT i FROM Item i WHERE i.id = :id"),
+		@NamedQuery(name = "Item.deleteSingleItem", query = "DELETE FROM Item i WHERE i.id = :id") })
 
-//@XmlRootElement(name = "item")
+// @XmlRootElement(name = "item")
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String itemCategory;
 	private int itemCount;
 	private String itemDescription;
@@ -41,11 +40,22 @@ public class Item implements Serializable {
 	public Item() {
 		super();
 	}
-		
+
 	public Item(int id, String itemCategory, int itemCount, String itemDescription, String itemName,
 			BigDecimal itemPrice, String itemUnitType) {
 		super();
 		this.id = id;
+		this.itemCategory = itemCategory;
+		this.itemCount = itemCount;
+		this.itemDescription = itemDescription;
+		this.itemName = itemName;
+		this.itemPrice = itemPrice;
+		this.itemUnitType = itemUnitType;
+	}
+
+	public Item(String itemCategory, int itemCount, String itemDescription, String itemName, BigDecimal itemPrice,
+			String itemUnitType) {
+		super();
 		this.itemCategory = itemCategory;
 		this.itemCount = itemCount;
 		this.itemDescription = itemDescription;
