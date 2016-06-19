@@ -59,13 +59,15 @@ public class ItemService {
 	 */
 	@PUT
 	@Path("/addItem")
-	@Produces(MediaType.APPLICATION_XML)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public String addItem(@FormParam("itemCategory") String itemCategory,
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addItem(Item itemToAdd)
+/*			@FormParam("itemCategory") String itemCategory,
 			@FormParam("itemCount") int itemCount, @FormParam("itemDescription") String itemDescription,
 			@FormParam("itemName") String itemName, @FormParam("itemPrice") BigDecimal itemPrice,
-			@FormParam("itemUnitType") String itemUnitType) {
-		Item itemToAdd = new Item(itemCategory, itemCount, itemDescription, itemName, itemPrice, itemUnitType);
+			@FormParam("itemUnitType") String itemUnitType) 
+*/	{
+//		Item itemToAdd = new Item(itemCategory, itemCount, itemDescription, itemName, itemPrice, itemUnitType);
 
 		int result = itemDAO.addItem(itemToAdd);
 		
